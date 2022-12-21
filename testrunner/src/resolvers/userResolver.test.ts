@@ -44,6 +44,7 @@ describe("User resolver", () => {
   });
 
   let token: string;
+  let userId: number;
 
   it("gets token if user is valid", async () => {
     const res = await client.query({
@@ -65,10 +66,10 @@ describe("User resolver", () => {
     });
     expect(res.data?.getToken.token).toMatch(/^[\w-]*\.[\w-]*\.[\w-]*$/);
     token = res.data?.getToken.token;
+    userId = res.data.getToken.userFromDB.userId;
   });
 
   it("query the connected user data with the token", async () => {
-    console.log("token for getUserData", token);
     const res = await client.query({
       query: gql`
         query Query {
@@ -93,20 +94,16 @@ describe("User resolver", () => {
   it("query the user by ID", async () => {
     const res = await client.query({
       query: gql`
-        query Query {
-          getMyUserData {
+        query GetUserById($userId: Float!) {
+          getUserById(userId: $userId) {
             email
           }
         }
       `,
+      variables: { userId },
       fetchPolicy: "no-cache",
-      context: {
-        headers: {
-          authorization: token,
-        },
-      },
     });
-    expect(res.data?.getMyUserData).toEqual({
+    expect(res.data?.getUserById).toEqual({
       email: "test@test.com",
       __typename: "User",
     });
