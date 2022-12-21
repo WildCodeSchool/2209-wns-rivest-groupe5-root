@@ -2,6 +2,21 @@
 
 ## Mise en place du projet en local
 
+On doit aboutir à la structure de projet suivante :
+
+```
+wildcarbon
+|__front
+|__back
+|__testrunner
+|__(tous les fichiers docker compose)
+```
+
+Ce repo git gère à la fois le projet testrunner et les fichiers docker compose à la racine.
+Un repo séparé gère le front, et encore un autre le back.
+
+### Récupérer le projet sur votre machine
+
 - Créer un dossier "wildcarbon"
 - ```bash
   cd wildcarbon
