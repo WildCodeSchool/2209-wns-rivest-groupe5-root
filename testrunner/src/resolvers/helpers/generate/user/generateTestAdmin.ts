@@ -15,7 +15,7 @@ export const generateTestAdmin = async (): Promise<ITestUser> => {
     fetchPolicy: "no-cache",
   });
 
-  const upgradeRes = await client.mutate({
+  await client.mutate({
     mutation: UPGRADE_USER_TO_ADMIN,
     variables: {
       email: userRes.data.createUser.email,
