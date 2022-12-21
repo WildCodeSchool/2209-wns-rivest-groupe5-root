@@ -1,27 +1,12 @@
-import { gql } from "@apollo/client/core";
 import client from "./helpers/getClient";
 import clearDB from "./helpers/clearDB";
-
-const CREATE_USER = gql`
-  mutation CreateUser(
-    $lastname: String!
-    $firstname: String!
-    $password: String!
-    $email: String!
-  ) {
-    createUser(
-      lastname: $lastname
-      firstname: $firstname
-      password: $password
-      email: $email
-    ) {
-      email
-    }
-  }
-`;
+import { CREATE_USER } from "./helpers/graphql/mutations/user/createUser";
+import { GET_TOKEN } from "./helpers/graphql/queries/user/getToken";
+import { GET_MY_USER_DATA } from "./helpers/graphql/queries/user/getMyUserData";
+import { GET_USER_BY_ID } from "./helpers/graphql/queries/user/getUserById";
 
 describe("User resolver", () => {
-  beforeAll(async () => {
+  afterAll(async () => {
     await clearDB();
   });
 
@@ -48,19 +33,7 @@ describe("User resolver", () => {
 
   it("gets token if user is valid", async () => {
     const res = await client.query({
-      query: gql`
-        query Query($password: String!, $email: String!) {
-          getToken(password: $password, email: $email) {
-            token
-            userFromDB {
-              userId
-              email
-              firstname
-              lastname
-            }
-          }
-        }
-      `,
+      query: GET_TOKEN,
       variables: { password: "test", email: "test@test.com" },
       fetchPolicy: "no-cache",
     });
@@ -71,13 +44,7 @@ describe("User resolver", () => {
 
   it("query the connected user data with the token", async () => {
     const res = await client.query({
-      query: gql`
-        query Query {
-          getMyUserData {
-            email
-          }
-        }
-      `,
+      query: GET_MY_USER_DATA,
       fetchPolicy: "no-cache",
       context: {
         headers: {
@@ -93,13 +60,7 @@ describe("User resolver", () => {
 
   it("query the user by ID", async () => {
     const res = await client.query({
-      query: gql`
-        query GetUserById($userId: Float!) {
-          getUserById(userId: $userId) {
-            email
-          }
-        }
-      `,
+      query: GET_USER_BY_ID,
       variables: { userId },
       fetchPolicy: "no-cache",
     });
