@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client/core";
-import client from "../getClient";
+import client from "../../getClient";
 
 export const getTokenForUser = async (
   password: string,

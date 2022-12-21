@@ -1,28 +1,6 @@
-import { gql } from "@apollo/client/core";
 import { ITestUser } from "src/interfaces/entitites/userTestInterface";
-import client from "../getClient";
-
-const CREATE_USER = gql`
-  mutation CreateUser(
-    $lastname: String!
-    $firstname: String!
-    $password: String!
-    $email: String!
-  ) {
-    createUser(
-      lastname: $lastname
-      firstname: $firstname
-      password: $password
-      email: $email
-    ) {
-      email
-      createdAt
-      firstname
-      lastname
-      userId
-    }
-  }
-`;
+import client from "../../getClient";
+import { CREATE_USER } from "../../graphql/mutations/user/createUser";
 
 export const generateTestUser = async (): Promise<ITestUser> => {
   const res = await client.mutate({
