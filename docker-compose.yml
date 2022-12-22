@@ -33,7 +33,7 @@ services:
     environment:
       - DB=dbprod
     env_file:
-      - .env
+      - ./back/.env
     depends_on:
       dbprod:
         condition: service_healthy
