@@ -27,18 +27,29 @@ Un repo séparé gère le front, et encore un autre le back.
   ```
 - Dans ce dossier wildcarbon, créer un dossier "front" et un dossier "back"
 - ```bash
+  mkdir front
+  ```
+- ```bash
+  mkdir back
+  ```
+- On va alors récupérer le projet front dans le dossier front, et le projet back dans le dossier back
+- ```bash
   cd front
+  ```
+- ```bash
   git clone https://github.com/WildCodeSchool/2209-wns-rivest-groupe5-front.git .
   ```
 - ```bash
-  cd ../back
+    cd ../back
+  ```
+- ```bash
   git clone https://github.com/WildCodeSchool/2209-wns-rivest-groupe5-back.git .
   ```
 - On retourne à la racine du projet, au niveau des fichiers docker-compose
 
-```bash
+- ```bash
   cd ..
-```
+  ```
 
 ## Lancer le projet
 
