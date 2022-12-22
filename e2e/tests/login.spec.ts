@@ -2,8 +2,8 @@ import { test, expect } from "@playwright/test";
 import { login } from "./utils/login";
 
 const user = {
-  email: "toto@toto.com",
-  password: "toto",
+  email: "titi@email.com",
+  password: "azerty",
 };
 
 test("login test", async ({ page }) => {
