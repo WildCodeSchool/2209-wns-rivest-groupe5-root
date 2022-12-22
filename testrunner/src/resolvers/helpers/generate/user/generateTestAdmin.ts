@@ -1,4 +1,4 @@
-import { ITestUser } from "src/interfaces/entitites/userTestInterface";
+import { ITestUser } from "src/interfaces/entitites/testUserInterface";
 import client from "../../getClient";
 import { CREATE_USER } from "../../graphql/mutations/user/createUser";
 import { UPGRADE_USER_TO_ADMIN } from "../../graphql/mutations/user/upgradeUserToAdmin";

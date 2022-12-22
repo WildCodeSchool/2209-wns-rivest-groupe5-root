@@ -1,4 +1,4 @@
-import { ITestUser } from "src/interfaces/entitites/userTestInterface";
+import { ITestUser } from "src/interfaces/entitites/testUserInterface";
 import clearDB from "./helpers/clearDB";
 import { generateTestAdmin } from "./helpers/generate/user/generateTestAdmin";
 import { getTokenForUser } from "./helpers/generate/user/getTokenForUser";

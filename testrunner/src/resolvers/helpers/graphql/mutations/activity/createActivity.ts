@@ -1,34 +1,19 @@
 import { gql } from "@apollo/client/core";
 
 export const CREATE_ACTIVITY = gql`
-  mutation CreateActivity(
-    $activityType: String!
-    $description: String!
-    $carbonQuantity: Float!
-    $activityDate: DateTime!
-    $title: String!
-  ) {
-    createActivity(
-      activityType: $activityType
-      description: $description
-      carbonQuantity: $carbonQuantity
-      activityDate: $activityDate
-      title: $title
-    ) {
+  mutation CreateActivity($data: CreateActivityInput!) {
+    createActivity(data: $data) {
+      activityId
       title
+      carbonQuantity
       user {
         userId
         email
       }
-      activityId
       activityType {
-        name
         activityTypeId
+        name
       }
-      carbonQuantity
-      description
-      createdAt
-      activityDate
     }
   }
 `;
