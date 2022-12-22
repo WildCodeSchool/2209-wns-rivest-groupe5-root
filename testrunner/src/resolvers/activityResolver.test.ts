@@ -1,4 +1,3 @@
-import { gql } from "@apollo/client/core";
 import { ITestUser } from "src/interfaces/entitites/userTestInterface";
 import clearDB from "./helpers/clearDB";
 import { generateTestActivityType } from "./helpers/generate/activityType/generateActivityType";
@@ -7,8 +6,9 @@ import { generateTestUser } from "./helpers/generate/user/generateTestUser";
 import { getTokenForUser } from "./helpers/generate/user/getTokenForUser";
 import client from "./helpers/getClient";
 import { CREATE_ACTIVITY } from "./helpers/graphql/mutations/activity/createActivity";
+import { GET_ALL_ACTIVITIES } from "./helpers/graphql/queries/activity/getAllActivities";
 
-describe("User resolver", () => {
+describe("Activity resolver", () => {
   let testUser: ITestUser;
   let testUserToken: string;
   let testAdmin: ITestUser;
@@ -34,14 +34,7 @@ describe("User resolver", () => {
 
   it("get all activites", async () => {
     const res = await client.query({
-      query: gql`
-        query GetAllActivities {
-          getAllActivities {
-            activityId
-            title
-          }
-        }
-      `,
+      query: GET_ALL_ACTIVITIES,
       fetchPolicy: "no-cache",
       context: {
         headers: {
