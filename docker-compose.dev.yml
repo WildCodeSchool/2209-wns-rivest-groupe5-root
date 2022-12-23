@@ -27,6 +27,8 @@ services:
   front:
     build: ./front
     restart: always
+    environment:
+      - REACT_APP_DB=dbdev
     ports:
       - 3000:3000
     depends_on:

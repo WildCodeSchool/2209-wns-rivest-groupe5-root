@@ -1,7 +1,7 @@
 import { expect } from "@playwright/test";
 
 export async function registerNewUser(page, userToRegister) {
-  await page.goto("http://localhost:3000/register");
+  await page.goto("http://front:3000/register");
 
   const firstNameInput = page.locator("#firstname");
   const lastNameInput = page.locator("#lastname");
@@ -16,5 +16,5 @@ export async function registerNewUser(page, userToRegister) {
   await passwordInput.fill(userToRegister.password);
   await passwordconfirmInput.fill(userToRegister.passwordconfirm);
   await submitbutton.click();
-//   await expect(page).toHaveURL(/login/, { timeout: 9000 });
+  //   await expect(page).toHaveURL(/login/, { timeout: 9000 });
 }
