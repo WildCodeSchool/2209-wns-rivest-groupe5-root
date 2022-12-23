@@ -3,7 +3,7 @@ import client from "../../getClient";
 import { CREATE_ACTIVITY } from "../../graphql/mutations/activity/createActivity";
 
 export const generateTestActivity = async (
-  activityTypeName: string,
+  activityTypeId: number,
   userToken: string
 ): Promise<ITestActivity> => {
   const res = await client.mutate({
@@ -11,7 +11,7 @@ export const generateTestActivity = async (
     variables: {
       data: {
         title: "test activity",
-        activityTypeName,
+        activityTypeId,
         description: "This is a test activity",
         carbonQuantity: 10,
       },
