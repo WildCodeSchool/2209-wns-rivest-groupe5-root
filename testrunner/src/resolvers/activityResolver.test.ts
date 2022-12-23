@@ -1,5 +1,6 @@
 import { ApolloError } from "@apollo/client";
 import { ITestActivity } from "src/interfaces/entitites/testActivityInterface";
+import { ITestActivityType } from "src/interfaces/entitites/testActivityTypeInterface";
 import { ITestUser } from "src/interfaces/entitites/testUserInterface";
 import clearDB from "./helpers/clearDB";
 import { generateTestActivity } from "./helpers/generate/activity/generateActivity";
@@ -19,7 +20,7 @@ describe("Activity resolver", () => {
   let testUserToken2: string;
   let testAdmin: ITestUser;
   let testAdminToken: string;
-  let testActivityType: string;
+  let testActivityType: ITestActivityType;
   const activitytypetest = "testactivitytype";
   let testActivity: ITestActivity;
 
@@ -36,7 +37,10 @@ describe("Activity resolver", () => {
       testAdminToken
     );
 
-    testActivity = await generateTestActivity(activitytypetest, testUserToken);
+    testActivity = await generateTestActivity(
+      testActivityType.activityTypeId,
+      testUserToken
+    );
   });
 
   afterAll(async () => {
@@ -61,7 +65,7 @@ describe("Activity resolver", () => {
       mutation: CREATE_ACTIVITY,
       variables: {
         data: {
-          activityTypeName: testActivityType,
+          activityTypeId: testActivityType.activityTypeId,
           description: "This is a test Activity",
           carbonQuantity: 10,
           title: "Test Activity",
