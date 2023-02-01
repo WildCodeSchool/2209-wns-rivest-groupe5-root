@@ -23,11 +23,8 @@ app.get('/', (req, res) => {
 
 app.post('/upload', async (req, res) => {
     try {
-        console.log(">>>>files received", req.files)
-        console.log(">>>>files received path ", req.files.file.path)
         let pictureToUpload = req.files.file.path;
         const result = await cloudinary.uploader.upload(pictureToUpload, { folder: 'wildcarbon/gooddeals' });
-        console.log(">>>>>response from cloudinary>>>", result)
         return res.status(200).json(result);
     } catch (error) {
         console.log(">>>ERROR>>>", error.message)
