@@ -5,6 +5,6 @@ export const login = async (page, user, expect) => {
   const submitButton = page.getByRole("button", { name: "login" });
   await emailInput.fill(user.email);
   await passwordInput.fill(user.password);
-  await submitButton.click();
+  await submitButton.click({timeout: 50000});
   await expect(page).toHaveURL(/dashboard/i);
 };

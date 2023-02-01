@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/WildCodeSchool/2209-wns-rivest-groupe5-test/issues"
   },
-  "homepage": "https://github.com/WildCodeSchool/2209-wns-rivest-groupe5-test#readme"
+  "homepage": "https://github.com/WildCodeSchool/2209-wns-rivest-groupe5-test#readme",
+  "dependencies": {
+    "@apollo/client": "^3.7.3"
+  }
 }
