@@ -3,3 +3,5 @@ back
 testrunner/node_modules
 contData
 mobile
+node_modules
+.vscode
