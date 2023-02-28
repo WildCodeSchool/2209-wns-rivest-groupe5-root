@@ -8,6 +8,6 @@ COPY jest.config.js ./
 RUN npm install
 
 COPY tsconfig.json ./
-COPY ./src ./src
+COPY ../back/tests/ ./tests/
 
 CMD npm run test
