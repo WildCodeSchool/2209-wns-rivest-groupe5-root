@@ -25,20 +25,20 @@ services:
         condition: service_healthy
 
   back:
-    build: ./back
+    build: ./back/back
     ports:
       - 5050:5050
     restart: always
     environment:
       - DB=dbe2e
     env_file:
-      - ./back/.env
+      - ./back/back/.env
     depends_on:
       dbe2e:
         condition: service_healthy
     command: npm run dev
     volumes:
-      - ./back/src/:/app/src/
+      - ./back/back/src/:/app/src/
     healthcheck:
       test: 'curl --fail --request POST --header ''content-type: application/json'' --url ''http://localhost:5050'' --data ''{"query":"query { __typename }"}'' || exit 1'
       interval: 2s
@@ -47,7 +47,7 @@ services:
       start_period: 2s
 
   front:
-    build: ./front
+    build: ./front/front
     restart: always
     environment:
       - REACT_APP_DB=dbe2e
@@ -63,7 +63,7 @@ services:
       retries: 8
       start_period: 4s
     volumes:
-      - ./front/src/:/app/src/
+      - ./front/front/src/:/app/src/
 
   mailhog:
     image: mailhog/mailhog:latest

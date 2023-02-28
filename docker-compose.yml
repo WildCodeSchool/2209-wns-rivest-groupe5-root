@@ -24,16 +24,16 @@ services:
         condition: service_healthy
 
   back:
-    build: ./back
+    build: ./back/back
     ports:
       - 5050:5050
     command: [sh, -cx, "npm run build && npm run start"]
     volumes:
-      - ./back/src/views:/app/build/views
+      - ./back/back/src/views:/app/build/views
     environment:
       - DB=dbprod
     env_file:
-      - ./back/.env
+      - ./back/back/.env
     depends_on:
       dbprod:
         condition: service_healthy
@@ -45,7 +45,7 @@ services:
       start_period: 2s
 
   front:
-    build: ./front
+    build: ./front/front
     environment:
       - REACT_APP_DB=dbprod
     ports:
