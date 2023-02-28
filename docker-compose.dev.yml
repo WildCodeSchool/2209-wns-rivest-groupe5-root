@@ -5,7 +5,7 @@ services:
     user: postgres
     volumes:
       - ./contData:/var/lib/postgresql/data
-      - ./back/tests:/app/tests
+      - ./back/testrunner:/app/tests
     environment:
       POSTGRES_PASSWORD: example
       PGDATA: /var/lib/postgresql/data/pgdata
@@ -25,7 +25,7 @@ services:
         condition: service_healthy
 
   front:
-    build: ./front
+    build: ./front/front
     restart: always
     environment:
       - REACT_APP_DB=dbdev
@@ -35,23 +35,23 @@ services:
       back:
         condition: service_healthy
     volumes:
-      - ./front/src/:/app/src/
+      - ./front/front/src/:/app/src/
 
   back:
-    build: ./back
+    build: ./back/back
     ports:
       - 5050:5050
     restart: always
     environment:
       - DB=dbdev
     env_file:
-      - ./back/.env
+      - ./back/back/.env
     depends_on:
       dbdev:
         condition: service_healthy
     command: npm run dev
     volumes:
-      - ./back/src/:/app/src/
+      - ./back/back/src/:/app/src/
     healthcheck:
       test: 'curl --fail --request POST --header ''content-type: application/json'' --url ''http://localhost:5050'' --data ''{"query":"query { __typename }"}'' || exit 1'
       interval: 2s
@@ -65,7 +65,7 @@ services:
     ports:
       - 1025:1025
       - 8025:8025
-      
+
   imageservice:
     build: ./image-service
     ports:
