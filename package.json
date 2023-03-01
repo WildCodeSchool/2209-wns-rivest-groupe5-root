@@ -1,27 +1,27 @@
 {
-  "name": "wildcarbon",
-  "version": "1.0.0",
-  "description": "On doit aboutir à la structure de projet suivante :",
-  "main": "index.js",
-  "scripts": {
-    "front-unit-test": "cd ./front && npm run test",
-    "back-unit-test": "cd ./back && npm run test",
-    "integration-test": "docker compose -f docker-compose.integration.test.yml up --build --exit-code-from testrunner",
-    "e2e-test": "docker compose -f docker-compose.e2e.test.yml up --build --exit-code-from e2e",
-    "start:dev": "docker compose -f docker-compose.dev.yml up --build",
-    "start:prod": "docker compose -f docker-compose.yml up --build"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/WildCodeSchool/2209-wns-rivest-groupe5-test.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/WildCodeSchool/2209-wns-rivest-groupe5-test/issues"
-  },
-  "homepage": "https://github.com/WildCodeSchool/2209-wns-rivest-groupe5-test#readme",
-  "dependencies": {
-    "@apollo/client": "^3.7.3"
-  }
+    "name": "wildcarbon",
+    "version": "1.0.0",
+    "description": "On doit aboutir à la structure de projet suivante :",
+    "main": "index.js",
+    "scripts": {
+        "front-unit-test": "cd ./front && npm run test",
+        "back-unit-test": "cd ./back && npm run test",
+        "integration-test": "cd ./back && docker compose -f docker-compose.integration.test.yml up --build --exit-code-from testrunner",
+        "e2e-test": "docker compose -f docker-compose.e2e.test.yml up --build --exit-code-from e2e",
+        "start:dev": "docker compose -f docker-compose.dev.yml up --build",
+        "start:prod": "docker compose -f docker-compose.yml up --build"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/WildCodeSchool/2209-wns-rivest-groupe5-test.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/WildCodeSchool/2209-wns-rivest-groupe5-test/issues"
+    },
+    "homepage": "https://github.com/WildCodeSchool/2209-wns-rivest-groupe5-test#readme",
+    "dependencies": {
+        "@apollo/client": "^3.7.3"
+    }
 }
