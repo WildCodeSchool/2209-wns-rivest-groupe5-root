@@ -48,6 +48,8 @@ services:
     build: ./front/front
     environment:
       - REACT_APP_DB=dbprod
+    env_file:
+      - ./front/front/.env
     ports:
       - 3000:3000
     depends_on:
