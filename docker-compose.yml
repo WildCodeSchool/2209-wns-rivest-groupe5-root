@@ -45,11 +45,11 @@ services:
       start_period: 2s
 
   front:
-    build: ./front/front
+    build: ./front/frontweb
     environment:
       - REACT_APP_DB=dbprod
     env_file:
-      - ./front/front/.env
+      - ./front/frontweb/.env
     ports:
       - 3000:3000
     depends_on:
