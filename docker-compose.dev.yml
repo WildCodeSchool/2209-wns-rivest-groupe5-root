@@ -7,7 +7,7 @@ services:
       - ./contData:/var/lib/postgresql/data
       - ./back/testrunner:/app/tests
     environment:
-      POSTGRES_PASSWORD: example
+      POSTGRES_PASSWORD: azerty
       PGDATA: /var/lib/postgresql/data/pgdata
     healthcheck:
       test: ["CMD-SHELL", "pg_isready"]
