@@ -4,7 +4,7 @@ services:
         restart: always
         user: postgres
         volumes:
-            - ./contData:/var/lib/postgresql/data
+            - db-data:/var/lib/postgresql/data
             - ./back/testrunner:/app/tests
         environment:
             POSTGRES_PASSWORD: azerty
@@ -74,3 +74,5 @@ services:
             - 4040:4040
         env_file:
             - ./image-service/.env
+volumes:
+    db-data:
