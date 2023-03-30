@@ -5,3 +5,4 @@ contData
 mobile
 node_modules
 .vscode
+.env
