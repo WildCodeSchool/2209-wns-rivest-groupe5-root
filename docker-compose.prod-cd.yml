@@ -23,7 +23,7 @@ services:
                 condition: service_healthy
 
     back:
-        build: ./back/back
+        image: wildcarbon/wildcarbon
         ports:
             - 5050:5050
         command: [sh, -cx, "npm run build && npm run start"]
@@ -32,7 +32,7 @@ services:
         environment:
             - DB=dbprod
         env_file:
-            - ./back/back/.env
+            - .env
         depends_on:
             dbprod:
                 condition: service_healthy
@@ -44,13 +44,13 @@ services:
             start_period: 2s
 
     front:
-        build: ./front/frontweb
+        image: wildcarbon/wildcarbonfront
         volumes:
             - web-client-build:/app/build
         environment:
             - REACT_APP_DB=dbprod
         env_file:
-            - ./front/frontweb/.env
+            - .env
         ports:
             - 3000:3000
         depends_on:
@@ -62,6 +62,7 @@ services:
                 -cx,
                 "npm run build --production && npm install -g serve && serve -s build",
             ]
+
     nginx:
         image: nginx:1.21.3
         depends_on:
