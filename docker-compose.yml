@@ -6,7 +6,7 @@ services:
         volumes:
             - ./contData:/var/lib/postgresql/data
         environment:
-            POSTGRES_PASSWORD: example
+            POSTGRES_PASSWORD: azerty
             PGDATA: /var/lib/postgresql/data/pgdata
         healthcheck:
             test: ["CMD-SHELL", "pg_isready"]
