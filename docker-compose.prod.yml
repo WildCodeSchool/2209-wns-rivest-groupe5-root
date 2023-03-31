@@ -5,8 +5,8 @@ services:
         user: postgres
         volumes:
             - db-data:/var/lib/postgresql/data
-        environment:
-            POSTGRES_PASSWORD: azerty
+        env_file:
+            - .env
         healthcheck:
             test: ["CMD-SHELL", "pg_isready"]
             interval: 5s
@@ -29,10 +29,8 @@ services:
         command: [sh, -cx, "npm run build && npm run start"]
         volumes:
             - ./back/back/src/views:/app/build/views
-        environment:
-            - DB=dbprod
         env_file:
-            - ./back/back/.env
+            - .env
         depends_on:
             dbprod:
                 condition: service_healthy
@@ -47,10 +45,8 @@ services:
         build: ./front/frontweb
         volumes:
             - web-client-build:/app/build
-        environment:
-            - REACT_APP_DB=dbprod
         env_file:
-            - ./front/frontweb/.env
+            - .env
         ports:
             - 3000:3000
         depends_on:

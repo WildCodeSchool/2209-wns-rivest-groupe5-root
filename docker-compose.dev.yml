@@ -6,9 +6,8 @@ services:
         volumes:
             - db-data:/var/lib/postgresql/data
             - ./back/testrunner:/app/tests
-        environment:
-            POSTGRES_PASSWORD: azerty
-            PGDATA: /var/lib/postgresql/data/pgdata
+        env_file:
+            - ./back/back/.env
         healthcheck:
             test: ["CMD-SHELL", "pg_isready"]
             interval: 5s
@@ -27,8 +26,6 @@ services:
     front:
         build: ./front/frontweb
         restart: always
-        environment:
-            - REACT_APP_DB=dbdev
         env_file:
             - ./front/frontweb/.env
         ports:
@@ -44,8 +41,6 @@ services:
         ports:
             - 5050:5050
         restart: always
-        environment:
-            - DB=dbdev
         env_file:
             - ./back/back/.env
         depends_on:
