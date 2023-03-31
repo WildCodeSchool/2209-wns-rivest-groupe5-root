@@ -4,7 +4,7 @@ services:
     restart: always
     user: postgres
     volumes:
-      - ./contData:/var/lib/postgresql/data
+      - db-data:/var/lib/postgresql/data
       - ./back/testrunner:/app/tests
     env_file:
     - ./back/back/.env
