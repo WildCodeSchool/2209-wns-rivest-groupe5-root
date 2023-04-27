@@ -1,5 +1,6 @@
+const multer = require("multer")
+const upload = multer({ dest: "uploads/" })
 const express = require('express')
-const formidableMiddleware = require('express-formidable');
 require('dotenv').config()
 const cors = require("cors");
 const app = express()
@@ -15,16 +16,16 @@ cloudinary.config({
 });
 
 app.use(cors());
-app.use(formidableMiddleware());
 
 app.get('/', (req, res) => {
-    res.send('Hello World picture uploader here!!!')
+    res.send('Hello World! picture uploader is ready (or not)!!!')
 })
 
-app.post('/upload', async (req, res) => {
+app.post('/upload', upload.single('file'), async (req, res) => {
     try {
-        let pictureToUpload = req.files.file.path;
-        const result = await cloudinary.uploader.upload(pictureToUpload, { folder: 'wildcarbon/gooddeals' });
+        console.log('>>>req.file>>>', req.file)
+        let pictureToUpload = req.file.path
+        const result = await cloudinary.uploader.upload(pictureToUpload, { folder: 'wildcarbon/' });
         return res.status(200).json(result);
     } catch (error) {
         console.log(">>>ERROR>>>", error.message)
