@@ -1,87 +1,83 @@
 services:
-    dbe2e:
-        image: postgres
-        restart: always
-        environment:
-            - DATABASE_HOST=127.0.0.1
-            - POSTGRES_USER=postgres
-            - POSTGRES_PASSWORD=azerty
-            - POSTGRES_DB=postgres
-        ports:
-            - "5432:5432"
-        healthcheck:
-            test:
-                [
-                    "CMD-SHELL",
-                    "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}",
-                ]
-            interval: 5s
-            timeout: 5s
-            retries: 10
+  dbe2e:
+    image: postgres
+    restart: always
+    environment:
+      - DATABASE_HOST=127.0.0.1
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=azerty
+      - POSTGRES_DB=postgres
+    ports:
+      - '5432:5432'
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}']
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
-    adminer:
-        image: adminer
-        restart: always
-        ports:
-            - 8081:8080
-        depends_on:
-            dbe2e:
-                condition: service_healthy
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8081:8080
+    depends_on:
+      dbe2e:
+        condition: service_healthy
 
-    back:
-        build: ./back/back
-        ports:
-            - 5050:5050
-        restart: always
-        environment:
-            - DB=dbe2e
-        env_file:
-            - ./back/back/.env
-        depends_on:
-            dbe2e:
-                condition: service_healthy
-        command: npm run dev
-        volumes:
-            - ./back/back/src/:/app/src/
-        healthcheck:
-            test: 'curl --fail --request POST --header ''content-type: application/json'' --url ''http://localhost:5050'' --data ''{"query":"query { __typename }"}'' || exit 1'
-            interval: 2s
-            timeout: 16s
-            retries: 8
-            start_period: 2s
+  back:
+    build: ./back/back
+    ports:
+      - 5050:5050
+    restart: always
+    environment:
+      - DB=dbe2e
+    env_file:
+      - ./back/back/.env
+    depends_on:
+      dbe2e:
+        condition: service_healthy
+    command: npm run dev
+    volumes:
+      - ./back/back/src/:/app/src/
+    healthcheck:
+      test: 'curl --fail --request POST --header ''content-type: application/json'' --url ''http://localhost:5050'' --data ''{"query":"query { __typename }"}'' || exit 1'
+      interval: 2s
+      timeout: 16s
+      retries: 8
+      start_period: 2s
 
-    front:
-        build: ./front/frontweb
-        restart: always
-        environment:
-            - REACT_APP_DB=dbe2e
-        env_file:
-            - ./front/frontweb/.env
-        ports:
-            - 3000:3000
-        depends_on:
-            back:
-                condition: service_healthy
-        healthcheck:
-            test: curl --fail --request GET --url 'http://localhost:3000' || exit 1
-            interval: 2s
-            timeout: 16s
-            retries: 8
-            start_period: 4s
-        volumes:
-            - ./front/frontweb/src/:/app/src/
+  front:
+    build: ./front/frontweb
+    restart: always
+    environment:
+      - REACT_APP_DB=dbe2e
+    env_file:
+      - ./front/frontweb/.env
+    ports:
+      - 3000:3000
+    depends_on:
+      back:
+        condition: service_healthy
+    healthcheck:
+      test: curl --fail --request GET --url 'http://localhost:3000' || exit 1
+      interval: 2s
+      timeout: 16s
+      retries: 8
+      start_period: 4s
+    volumes:
+      - ./front/frontweb/src/:/app/src/
 
-    mailhog:
-        image: mailhog/mailhog:latest
-        restart: always
-        ports:
-            - 1025:1025
-            - 8025:8025
-    e2e:
-        build: ./e2e
-        volumes:
-            - ./e2e/playwright-report:/app/playwright-report
-            - ./e2e/test-results:/app/test-results
-        depends_on:
-            front:
-                condition: service_healthy
+  mailhog:
+    image: mailhog/mailhog:latest
+    restart: always
+    ports:
+      - 1025:1025
+      - 8025:8025
+  e2e:
+    build: ./e2e
+    volumes:
+      - ./e2e/playwright-report:/app/playwright-report
+      - ./e2e/test-results:/app/test-results
+    depends_on:
+      front:
+        condition: service_healthy
