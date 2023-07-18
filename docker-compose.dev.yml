@@ -7,7 +7,7 @@ services:
       - db-data:/var/lib/postgresql/data
       - ./back/testrunner:/app/tests
     env_file:
-      - ./back/back/.env
+      - ./back/back/.env.dev
     healthcheck:
       test: ['CMD-SHELL', 'pg_isready']
       interval: 5s
@@ -42,7 +42,7 @@ services:
       - 5050:5050
     restart: always
     env_file:
-      - ./back/back/.env
+      - ./back/back/.env.dev
     depends_on:
       dbdev:
         condition: service_healthy
