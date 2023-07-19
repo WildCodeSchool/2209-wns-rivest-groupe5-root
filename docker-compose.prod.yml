@@ -45,7 +45,7 @@ services:
 
   front:
     image: wildcarbon/wildcarbonfront
-    command: sh -c "npm run build"
+    command: [sh, -cx, 'npm run build']
     volumes:
       - web-client-build:/app/build
     environment:
