@@ -45,6 +45,7 @@ services:
 
   front:
     image: wildcarbon/wildcarbonfront
+    command: sh -c "npm run build"
     volumes:
       - web-client-build:/app/build
     environment:
@@ -64,7 +65,7 @@ services:
       - back
     restart: always
     ports:
-      - ${GATEWAY_PORT}:80
+      - ${GATEWAY_PORT:-8000}:80
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
       - web-client-build:/web-client-build
