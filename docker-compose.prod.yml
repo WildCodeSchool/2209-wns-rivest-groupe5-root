@@ -39,8 +39,8 @@ services:
     healthcheck:
       test: 'curl --fail --request POST --header ''content-type: application/json'' --url ''http://localhost:5050'' --data ''{"query":"query { __typename }"}'' || exit 1'
       interval: 2s
-      timeout: 50s
-      retries: 15
+      timeout: 120s
+      retries: 60
       start_period: 2s
 
   front:
