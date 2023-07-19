@@ -50,10 +50,6 @@ services:
       - web-client-build:/app/build
     environment:
       - REACT_APP_DB=dbprod
-    env_file:
-      - ./front/frontweb/.env
-    ports:
-      - 3000:80
     depends_on:
       back:
         condition: service_healthy
