@@ -44,7 +44,8 @@ services:
       start_period: 2s
 
   front:
-    image: wildcarbon/wildcarbonfront
+    build:
+      context: ./frontweb
     command: [sh, -cx, 'npm run build']
     volumes:
       - web-client-build:/app/build
