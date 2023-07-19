@@ -26,6 +26,8 @@ services:
   front:
     build: ./front/frontweb
     restart: always
+    environment:
+      - REACT_APP_DB=dbdev
     env_file:
       - ./front/frontweb/.env
     ports:
