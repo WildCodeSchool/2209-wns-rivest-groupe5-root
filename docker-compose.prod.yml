@@ -44,8 +44,7 @@ services:
       start_period: 2s
 
   front:
-    build:
-      context: ./frontweb
+    build: ./front/frontweb
     command: [sh, -cx, 'npm run build']
     volumes:
       - web-client-build:/app/build
