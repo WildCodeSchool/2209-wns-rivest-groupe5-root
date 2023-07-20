@@ -1,0 +1,71 @@
+services:
+  dbstaging:
+    image: postgres
+    restart: always
+    user: postgres
+    volumes:
+      - db-data-staging:/var/lib/postgresql/data
+    env_file:
+      - ./back/back/.env.production
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8082:8080
+    depends_on:
+      dbstaging:
+        condition: service_healthy
+
+  back-staging:
+    image: wildcarbon/wildcarbon
+    ports:
+      - 5051:5050
+    command: [sh, -cx, 'npm run build && npm run start']
+    volumes:
+      - ./back/back/src/views:/app/build/views
+    environment:
+      - DB=dbstaging
+    env_file:
+     - ./back/back/.env.production
+    depends_on:
+      dbstaging:
+        condition: service_healthy
+    healthcheck:
+      test: 'curl --fail --request POST --header ''content-type: application/json'' --url ''http://localhost:5050'' --data ''{"query":"query { __typename }> "}'' || exit 1'
+      interval: 2s
+      timeout: 120s
+      retries: 60
+      start_period: 2s
+
+  front-staging:
+    build: ./front/frontweb
+    command: [sh, -cx, 'npm run build']
+    volumes:
+      - web-client-build-staging:/app/build
+    environment:
+      - REACT_APP_DB=dbstaging
+    depends_on:
+      back-staging:
+        condition: service_healthy
+
+  nginx:
+    image: nginx:1.21.3
+    depends_on:
+      - front-staging
+      - back-staging
+    restart: always
+    ports:
+      - ${GATEWAY_PORT:-8001}:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - web-client-build-staging:/web-client-build
+      - ./logs:/var/log/nginx
+volumes:
+  web-client-build-staging:
+  db-data-staging:
