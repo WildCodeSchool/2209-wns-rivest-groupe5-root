@@ -17,7 +17,7 @@ On doit aboutir à la structure de projet suivante :
 wildcarbon
 |__front
 |__back
-|__testrunner
+|__mobile
 |__(tous les fichiers docker compose)
 ```
 
@@ -41,28 +41,36 @@ Un repo séparé gère le front, et encore un autre le back.
 - ```bash
   mkdir back
   ```
-- On va alors récupérer le projet front dans le dossier front, et le projet back dans le dossier back
+- ```bash
+  mkdir mobile
+  ```
+- On va alors récupérer le projet front dans le dossier front, le projet back dans le dossier back, et le mobile dans le dossier mobile
 - ```bash
   cd front
   ```
 - ```bash
   git clone https://github.com/WildCodeSchool/2209-wns-rivest-groupe5-front.git .
   ```
-- Il faut également créer un fichier `.env` à la racine du projet. Demander à un membre du projet de vous donner le contenu de ce fichier, et le créer dans votre projet front.
+- Si vous lancez le front sans le docker-compose, il faut également créer un fichier `.env` dans `/front/frontweb/`. Demander à un membre du projet de vous donner le contenu de ce fichier, et le créer dans votre projet front.
 - ```bash
     cd ../back
   ```
 - ```bash
   git clone https://github.com/WildCodeSchool/2209-wns-rivest-groupe5-back.git .
   ```
-- Il faut également créer un fichier `.env` à la racine du projet. Demander à un membre du projet de vous donner le contenu de ce fichier, et le créer dans votre projet back.
-- On retourne à la racine du projet, au niveau des fichiers docker-compose et du package.json qui contient les scripts de lancement :
-
+- Il faut créer les fichiers `.env.dev` et `.env.productions` dans `/back/back/`. Demander à un membre du projet de vous donner le contenu de ces fichiers, et les créer dans votre projet back.
 - ```bash
-  cd ..
+    cd ../mobile
   ```
+- ```bash
+  git clone https://github.com/WildCodeSchool/2209-wns-rivest-groupe5-mobile .
+  ```
+- ```bash
+  cd ../image-service
+  ```
+- Dans le projet root, vous trouverez le dossier image-service. Il faut créer un fichier `.env` dans `/image-service`. Demander à un membre du projet de vous donner le contenu de ce fichier, et le créer dans votre projet image-service.
 
-## Lancer le projet
+## Lancer le projet - web
 
 Il est nécessaire de se placer à la racine du projet, au niveau des docker-compose et du package.json qui contient les scripts à executer.
 
@@ -78,18 +86,6 @@ npm run integration-test
 npm run e2e-test
 ```
 
-### Lancer les tests unitaires front
-
-```bash
-npm run front-unit-test
-```
-
-### Lancer les tests unitaires back (PAS ENCORE IMPLEMENTE)
-
-```bash
-npm run back-unit-test
-```
-
 ### Lancer le projet en DEV
 
 ```bash
@@ -101,6 +97,13 @@ npm run start:dev
 ```bash
 npm run start:prod
 ```
+
+## Lancer le projet - mobile
+
+Il est nécessaire de lancer le projet comme mentionné dans la partie ci-dessus pour avoir tous les services nécessaires opérationnels (back, image-service, database...).
+Veuillez également installer un émulateur en suivant la documentation officielle de React-Native [disponible ici](https://reactnative.dev/docs/environment-setup).
+
+Il vous faudra aussi installer la CLI Expo, en suivant la documentation officielle [disponible ici](https://docs.expo.dev/get-started/installation/).
 
 ## Liens utiles
 
